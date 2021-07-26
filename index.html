@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style/main.css" />
+    </head>
+    <body>
+        <h1>Note Teacher</h1>
+        <div id="intro">Play middle C (C/4) to start</div>
+        <div id="view">
+            <div id="sheet"></div>
+            <div id="stats"></div>
+        </div>
+        <div id="played"></div>
+
+        <script src="https://unpkg.com/vexflow/releases/vexflow-debug.js"></script>
+        <script src="src/midi.js"></script>
+        <script src="src/display.js"></script>
+        <script src="src/teacher.js"></script>
+
+        <script>
+            Array.prototype.getRandom = function() {
+                // monkey patching not nice but extremely useful here
+                return this[Math.floor(Math.random() * this.length)]
+            }
+            
+            const midiConnector = new MidiConnector()
+            const successNotifier = new Notifier('intro', 5000)
+            const stats = new Notifier('stats')
+
+            midiConnector.onNoteStartHandler = (note) => { successNotifier.clear(); successNotifier.show('Stop playing middle C to start') },
+            midiConnector.onNoteEndHandler = (note) => {
+                successNotifier.clear()
+                const sheet = new Sheet(containerId)
+                const teacher = new Teacher(sheet, midiConnector)
+                teacher.nextTask()
+            }
+        </script>
+    </body>
+</html>

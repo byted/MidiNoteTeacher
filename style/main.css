@@ -1,0 +1,23 @@
+body {
+    text-align: center;
+    font-family: system-ui;
+}
+#intro {
+    height: 2rem;
+}
+#stats {
+    width: 10rem;
+}
+#stats table td:first-child {
+    text-align: right;
+}
+#view {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.vanished {
+    display: none;
+}
